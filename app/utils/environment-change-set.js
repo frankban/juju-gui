@@ -307,8 +307,8 @@ YUI.add('environment-change-set', function(Y) {
     /**
       Creates a new entry in the queue for creating a new service.
 
-      Receives all the parameters it's public method 'deploy' was called with
-      with the exception of the ECS options oject.
+      Receives all the parameters received by the environment's "deploy"
+      method with the exception of the ECS options object.
 
       @method _lazyDeploy
       @param {Array} args The arguments to deploy the charm with.
@@ -336,8 +336,8 @@ YUI.add('environment-change-set', function(Y) {
     /**
       Creates a new entry in the queue for setting a services config.
 
-      Receives all the parameters it's public method 'set_config' was called
-      with with the exception of the ECS options oject.
+      Receives all the parameters received by the environment's "set_config"
+      method with the exception of the ECS options object.
 
       @method _lazySetConfig
       @param {Array} args The arguments to set the config with.
@@ -364,13 +364,77 @@ YUI.add('environment-change-set', function(Y) {
     /**
       Creates a new entry in the queue for adding a relation.
 
-      Receives all the parameters it's public method 'addRelation' was called
-      with with the exception of the ECS options oject.
+      Receives all the parameters received by the environment's "add_relation"
+      method with the exception of the ECS options object.
 
       @method _lazyAddRelation
       @param {Array} args The arguments to add the relation with.
     */
     _lazyAddRelation: function(args) {
+      var serviceA;
+      var serviceB;
+      Y.Object.each(this.changeSet, function(value, key) {
+        if (value.command.method === '_deploy') {
+          if (value.command.options.modelId === args[0][0]) {
+            serviceA = key;
+            args[0][0] = value.command.args[1];
+          }
+          if (value.command.options.modelId === args[1][0]) {
+            serviceB = key;
+            args[1][0] = value.command.args[1];
+          }
+        }
+      });
+      var parent = [serviceA, serviceB];
+      var command = {
+        method: '_add_relation',
+        args: args
+      };
+      return this._createNewRecord('addRelation', command, parent);
+    },
+
+    /**
+      Creates a new entry in the queue for adding machines/containers.
+
+      Receives all the parameters received by the environment's "addMachines"
+      method with the exception of the ECS options object.
+
+      @method lazyAddMachines
+      @param {Array} args The arguments to add the machines with.
+    */
+    lazyAddMachines: function(args) {
+      var serviceA;
+      var serviceB;
+      Y.Object.each(this.changeSet, function(value, key) {
+        if (value.command.method === '_deploy') {
+          if (value.command.options.modelId === args[0][0]) {
+            serviceA = key;
+            args[0][0] = value.command.args[1];
+          }
+          if (value.command.options.modelId === args[1][0]) {
+            serviceB = key;
+            args[1][0] = value.command.args[1];
+          }
+        }
+      });
+      var parent = [serviceA, serviceB];
+      var command = {
+        method: '_add_relation',
+        args: args
+      };
+      return this._createNewRecord('addRelation', command, parent);
+    },
+
+    /**
+      Creates a new entry in the queue for adding service units.
+
+      Receives all the parameters received by the environment's "add_unit"
+      method with the exception of the ECS options object.
+
+      @method lazyAddUnits
+      @param {Array} args The arguments to add the units with.
+    */
+    lazyAddUnits: function(args) {
       var serviceA;
       var serviceB;
       Y.Object.each(this.changeSet, function(value, key) {
