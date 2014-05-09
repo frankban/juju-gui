@@ -403,26 +403,7 @@ YUI.add('environment-change-set', function(Y) {
       @param {Array} args The arguments to add the machines with.
     */
     lazyAddMachines: function(args) {
-      var serviceA;
-      var serviceB;
-      Y.Object.each(this.changeSet, function(value, key) {
-        if (value.command.method === '_deploy') {
-          if (value.command.options.modelId === args[0][0]) {
-            serviceA = key;
-            args[0][0] = value.command.args[1];
-          }
-          if (value.command.options.modelId === args[1][0]) {
-            serviceB = key;
-            args[1][0] = value.command.args[1];
-          }
-        }
-      });
-      var parent = [serviceA, serviceB];
-      var command = {
-        method: '_add_relation',
-        args: args
-      };
-      return this._createNewRecord('addRelation', command, parent);
+
     },
 
     /**
@@ -435,26 +416,7 @@ YUI.add('environment-change-set', function(Y) {
       @param {Array} args The arguments to add the units with.
     */
     lazyAddUnits: function(args) {
-      var serviceA;
-      var serviceB;
-      Y.Object.each(this.changeSet, function(value, key) {
-        if (value.command.method === '_deploy') {
-          if (value.command.options.modelId === args[0][0]) {
-            serviceA = key;
-            args[0][0] = value.command.args[1];
-          }
-          if (value.command.options.modelId === args[1][0]) {
-            serviceB = key;
-            args[1][0] = value.command.args[1];
-          }
-        }
-      });
-      var parent = [serviceA, serviceB];
-      var command = {
-        method: '_add_relation',
-        args: args
-      };
-      return this._createNewRecord('addRelation', command, parent);
+
     }
 
     /* End private environment methods. */
