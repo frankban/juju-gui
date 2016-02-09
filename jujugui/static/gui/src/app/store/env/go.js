@@ -169,6 +169,7 @@ YUI.add('juju-env-go', function(Y) {
       @type {Object}
     */
     facadeVersions: {
+      Admin: 2,
       CrossModelRelations: 1,
       EnvironmentManager: 1,
       Service: 2
@@ -508,8 +509,8 @@ YUI.add('juju-env-go', function(Y) {
           Type: 'Admin',
           Request: 'Login',
           Params: {
-            AuthTag: credentials.user,
-            Password: credentials.password
+            'auth-tag': credentials.user,
+            credentials: credentials.password
           }
         }, this.handleLogin);
         this.pendingLoginResponse = true;
