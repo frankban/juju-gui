@@ -288,7 +288,8 @@ YUI.add('juju-delta-handlers', function(Y) {
         exposed: change.exposed,
         life: change.life,
         constraints: utils.convertConstraints(change.constraints),
-        subordinate: change.subordinate
+        subordinate: change.subordinate,
+        workloadVersion: change['workload-version']
       };
       // Process the stream.
       db.services.process_delta(action, data);

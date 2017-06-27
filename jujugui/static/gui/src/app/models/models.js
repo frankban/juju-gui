@@ -416,6 +416,13 @@ YUI.add('juju-models', function(Y) {
       life: {
         value: ALIVE
       },
+      /**
+        The version of the application provided by the charm (for instance the
+        version of PostgreSQL).
+
+        @type {String}
+      */
+      workloadVersion: {value: ''},
       unit_count: {},
 
       /**
