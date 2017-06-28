@@ -9,6 +9,12 @@
     margin-right: 15px;
   }
 
+  &__version {
+    color: $dark-grey;
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
   &__count {
     float: right;
   }

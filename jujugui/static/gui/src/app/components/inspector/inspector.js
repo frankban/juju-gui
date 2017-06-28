@@ -130,6 +130,7 @@ const Inspector = React.createClass({
         state.activeChild = {
           title: service.get('name'),
           icon: service.get('icon'),
+          version: service.get('workloadVersion'),
           component: <juju.components.ServiceOverview
             acl={this.props.acl}
             changeState={changeState}
@@ -427,7 +428,9 @@ const Inspector = React.createClass({
           activeComponent={this.state.activeComponent}
           type={this.state.activeChild.headerType}
           title={this.state.activeChild.title}
-          icon={this.state.activeChild.icon} />
+          icon={this.state.activeChild.icon}
+          version={this.state.activeChild.version}
+        />
         <div className="inspector-content">
           {this.state.activeChild.component}
         </div>
