@@ -35,21 +35,32 @@ YUI.add('juju-env-api', function(Y) {
   const ERR_STOP_WATCHER = 'watcher was stopped';
 
   /**
+    Return the base path for model related Juju HTTP API.
+
+    @method _getJujuModelPath
+    @param {String} uuid The model uuid for the endpoint.
+    @return {String} The base model path.
+  */
+  const _getJujuModelPath = function(uuid) {
+    const base = '/model/' + uuid;
+    if (window.juju_config && window.juju_config.staticURL) {
+      return base;
+    }
+    // We are in the GUI charm, use the proxy provided by the GUI server.
+    return '/juju-core' + base;
+  };
+
+  /**
     Return a proper local charm endpoint for both the GUI in
     Juju and the GUI charm.
 
     @method _getCharmAPIPath
-    @param {String} The model uuid for the endpoint.
-    @param {String} A path fragment to update to the full path.
-    @return {String} Returns the proper full path.
+    @param {String} uuid The model uuid for the endpoint.
+    @param {String} query A path fragment to update to the full path.
+    @return {String} The proper full path.
   */
-  var _getCharmAPIPath = function(uuid, query) {
-    var prefix = '/model/' + uuid + '/charms?';
-    if (!window.juju_config || !window.juju_config.staticURL) {
-      // We are in the GUI charm, not Juju itself.
-      prefix = '/juju-core' + prefix;
-    }
-    return prefix + query;
+  const _getCharmAPIPath = function(uuid, query) {
+    return this._getJujuModelPath(uuid) + '/charms?' + query;
   };
 
   /**
@@ -1014,6 +1025,24 @@ YUI.add('juju-env-api', function(Y) {
       return webHandler.getUrl(
         path, tags.build(tags.USER, credentials.user), credentials.password);
     },
+
+    /**
+      Return the URL of the icon corresponding to the application with the
+      given name.
+
+      @method _getRemoteApplicationIconURL
+      @param {String} name The name of the remote application.
+      @return {String} The icon fully qualified URL.
+    */
+    const _getRemoteApplicationIconURL = function(name) {
+      const credentials = this.getCredentials();
+      const uuid = this.get('modelUUID');
+      const base = this._getJujuModelPath(uuid);
+      return this.get('webHandler').getUrl(
+        base + '/1.0/remote-applications/' + name + '/icon',
+        tags.build(tags.USER, credentials.user),
+        credentials.password);
+    };
 
     /**
       Make a GET request to the Juju HTTPS API.
@@ -2831,10 +2860,6 @@ YUI.add('juju-env-api', function(Y) {
           return;
         }
         const info = result.result;
-        let icon = '';
-        if (info.icon) {
-          icon = atob(info.icon);
-        }
         callback(null, {
           modelTag: info['model-tag'],
           modelId: tags.parse(tags.MODEL, info['model-tag']),
@@ -2850,8 +2875,7 @@ YUI.add('juju-env-api', function(Y) {
               limit: endpoint.limit,
               scope: endpoint.scope
             };
-          }),
-          icon: icon
+          })
         });
       };
 
