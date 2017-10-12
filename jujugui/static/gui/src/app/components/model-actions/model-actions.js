@@ -6,6 +6,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 
 const SvgIcon = require('../svg-icon/svg-icon');
+const Terminal = require('../terminal/terminal');
 
 class ModelActions extends React.Component {
   /**
@@ -83,6 +84,12 @@ class ModelActions extends React.Component {
         </span>
       );
     }
+    let terminalAction = null;
+    if (true) {
+      terminalAction = (<Terminal
+        address={props.address}
+        creds={props.creds} />);
+    }
     const isReadOnly = props.acl.isReadOnly();
     return (
       <div className={this._generateClasses()}>
@@ -114,6 +121,7 @@ class ModelActions extends React.Component {
             </span>
           </span>
           {shareAction}
+          {terminalAction}
         </div>
         <input className="model-actions__file"
           type="file"
@@ -127,6 +135,7 @@ class ModelActions extends React.Component {
 
 ModelActions.propTypes = {
   acl: PropTypes.object.isRequired,
+  address: PropTypes.string,
   appState: PropTypes.object.isRequired,
   changeState: PropTypes.func.isRequired,
   exportEnvironmentFile: PropTypes.func.isRequired,
