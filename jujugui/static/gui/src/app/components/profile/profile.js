@@ -80,7 +80,7 @@ class Profile extends React.Component {
               addNotification={props.addNotification}
               controllerAPI={
                 shapeup.fromShape(props.controllerAPI, propTypes.controllerAPI)}
-              credential={this._getProfileURL().subSection}
+              credential={this._getSectionInfo().sub}
               username={props.controllerUser} />);
         }
       }]
@@ -122,23 +122,32 @@ class Profile extends React.Component {
   }
 
   /**
-    Get the base URL for the active section e.g. "credentials/aws_prod" would
-    return "credentials".
-    @returns {String} The active base section of the URL.
+    Get info about the current profile path section. For instance, if the
+    current path is "/u/who/#invoices/42" the resulting object will be
+    {full: '/u/who/#invoices/42', active: 'invoices', sub: '42'}.
+    @returns {Object} The section info.
   */
-  _getProfileURL() {
-    const URL = this.props.activeSection || '';
-    const parts = URL.split('/');
+  _getSectionInfo() {
+    const path = this.props.activeSection || '';
+    const parts = path.split('/');
     return {
-      full: URL,
-      activeSection: parts[0],
-      subSection: parts.length > 1 ? parts.slice(1, parts.length).join('/') : null
+      full: path,
+      active: parts[0],
+      sub: parts.length > 1 ? parts.slice(1, parts.length).join('/') : null
     };
   }
 
   render() {
     const sectionsMap = this.sectionsMap;
-    let section = sectionsMap.get(this._getProfileURL().activeSection);
+    const info = this._getSectionInfo();
+    if (info.active === 'invoices' && info.sub !== null) {
+      return (
+        <Panel instanceName="invoice-detail" visible={true}>
+          <div className="twelve-col">Hello I am your invoice!</div>
+        </Panel>
+      );
+    }
+    let section = sectionsMap.get(info.active);
     let mapEntry;
     if (section === undefined) {
       // Grab the first element in the sectionsMap if the provided
@@ -160,7 +169,7 @@ class Profile extends React.Component {
           <div className="profile__content inner-wrapper">
             <ProfileNavigation
               // Use supplied activeSection or the key from the first map entry.
-              activeSection={this._getProfileURL().activeSection || mapEntry[0]}
+              activeSection={info.active || mapEntry[0]}
               changeState={this.props.changeState}
               sectionsMap={sectionsMap} />
             {section.getComponent()}
