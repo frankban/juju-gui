@@ -205,10 +205,10 @@ describe('Payment', function() {
     const expected = (
       <div className="payment">
         <div className="payment__section">
-          <h2 className="payment__title twelve-col">
-            Enter your payment details
-          </h2>
           <div className="twelve-col">
+            <h2 className="payment__title twelve-col">
+              Enter your payment details
+            </h2>
             <CreatePaymentUser
               acl={acl}
               addNotification={addNotification}

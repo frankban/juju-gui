@@ -68,6 +68,16 @@ describe('CreatePaymentUser', function() {
           <div className="create-payment-user__form-content">
             <ul className="create-payment-user__form-type">
               <li className="create-payment-user__form-type-option">
+                <label htmlFor="business">
+                  <input checked={false}
+                    id="business"
+                    name="formType"
+                    onChange={options[1].props.children.props.children[0].props.onChange}
+                    type="radio" />
+                    Business use
+                </label>
+              </li>
+              <li className="create-payment-user__form-type-option">
                 <label htmlFor="personal">
                   <input checked={true}
                     id="personal"
@@ -78,21 +88,10 @@ describe('CreatePaymentUser', function() {
                   Personal use
                 </label>
               </li>
-              <li className="create-payment-user__form-type-option">
-                <label htmlFor="business">
-                  <input checked={false}
-                    id="business"
-                    name="formType"
-                    onChange={options[1].props.children.props.children[0]
-                      .props.onChange}
-                    type="radio" />
-                  Business use
-                </label>
-              </li>
             </ul>
             {null}
             <h2 className="create-payment-user__title">
-              Name and address
+              Your contact details
             </h2>
             {null}
             <GenericInput
@@ -210,7 +209,7 @@ describe('CreatePaymentUser', function() {
                 required={false} />
             </div>
             <h2 className="create-payment-user__title">
-              Name and address
+              Your contact details
             </h2>
             <GenericInput
               disabled={false}

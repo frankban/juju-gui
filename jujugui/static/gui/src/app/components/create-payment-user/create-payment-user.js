@@ -266,6 +266,16 @@ class CreatePaymentUser extends React.Component {
           <div className="create-payment-user__form-content">
             <ul className="create-payment-user__form-type">
               <li className="create-payment-user__form-type-option">
+                <label htmlFor="business">
+                  <input checked={this.state.business}
+                    id="business"
+                    name="formType"
+                    onChange={this._setFormType.bind(this, true)}
+                    type="radio" />
+                    Business use
+                </label>
+              </li>
+              <li className="create-payment-user__form-type-option">
                 <label htmlFor="personal">
                   <input checked={!this.state.business}
                     id="personal"
@@ -275,20 +285,10 @@ class CreatePaymentUser extends React.Component {
                   Personal use
                 </label>
               </li>
-              <li className="create-payment-user__form-type-option">
-                <label htmlFor="business">
-                  <input checked={this.state.business}
-                    id="business"
-                    name="formType"
-                    onChange={this._setFormType.bind(this, true)}
-                    type="radio" />
-                  Business use
-                </label>
-              </li>
             </ul>
             {this._generateVATField()}
             <h2 className="create-payment-user__title">
-              Name and address
+              Your contact details
             </h2>
             {this._generateBusinessNameField()}
             <GenericInput
