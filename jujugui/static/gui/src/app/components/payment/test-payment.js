@@ -168,7 +168,7 @@ describe('Payment', function() {
       <div className="payment">
         <div className="payment__section">
           <h2 className="payment__title twelve-col">
-            Payment details
+            Enter your payment details
           </h2>
           <div className="payment__no-user">
             You are not set up to make payments.
@@ -206,7 +206,7 @@ describe('Payment', function() {
       <div className="payment">
         <div className="payment__section">
           <h2 className="payment__title twelve-col">
-            Payment details
+            Enter your payment details
           </h2>
           <div className="twelve-col">
             <CreatePaymentUser

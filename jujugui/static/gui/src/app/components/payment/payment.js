@@ -149,7 +149,7 @@ class Payment extends React.Component {
     return (
       <div className="payment__section">
         <h2 className="payment__title twelve-col">
-          Payment details
+          Enter your payment details
         </h2>
         <div className="twelve-col">
           <CreatePaymentUser
