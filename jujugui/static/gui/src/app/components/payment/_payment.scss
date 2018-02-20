@@ -11,6 +11,33 @@
 
   &__title {
     font-size: 1.375rem;
-    margin-top: 10px;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .create-payment-user__title {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 1.5rem 0 1rem 0;
+  }
+
+  .inset-select,
+  .inset-select__field {
+    width: 100%;
+  }
+
+  .generic-input {
+
+    &__field[type=text] {
+      margin-bottom: 1.5rem;
+      width: calc(100% - 40px)!important;
+    }
+  }
+
+  [type="radio"]:checked:after {
+    position: relative !important;
+    bottom: 3px;
   }
 }
