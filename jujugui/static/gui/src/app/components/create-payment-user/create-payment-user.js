@@ -15,7 +15,7 @@ class CreatePaymentUser extends React.Component {
     this.xhrs = [];
     this.state = {
       billingAddressSame: true,
-      business: false,
+      business: true,
       cardAddressSame: true,
       loading: false
     };
