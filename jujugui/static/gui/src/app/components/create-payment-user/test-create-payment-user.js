@@ -72,7 +72,7 @@ describe('CreatePaymentUser', function() {
                   <input checked={false}
                     id="business"
                     name="formType"
-                    onChange={options[1].props.children.props.children[0].props.onChange}
+                    onChange={options[0].props.children.props.children[0].props.onChange}
                     type="radio" />
                     Business use
                 </label>
@@ -82,7 +82,7 @@ describe('CreatePaymentUser', function() {
                   <input checked={true}
                     id="personal"
                     name="formType"
-                    onChange={options[0].props.children.props.children[0]
+                    onChange={options[1].props.children.props.children[0]
                       .props.onChange}
                     type="radio" />
                   Personal use
@@ -137,14 +137,14 @@ describe('CreatePaymentUser', function() {
             </label>
             {null}
             {null}
-          </div>
-          <div className="create-payment-user__add">
-            <GenericButton
-              action={instance._handleAddUser}
-              disabled={false}
-              type="inline-neutral">
-              Add payment details
-            </GenericButton>
+            <div className="create-payment-user__add">
+              <GenericButton
+                action={instance._handleAddUser}
+                disabled={false}
+                type="inline-neutral">
+                Add payment details
+              </GenericButton>
+            </div>
           </div>
         </form>
       </div>);
@@ -183,7 +183,7 @@ describe('CreatePaymentUser', function() {
                   <input checked={false}
                     id="personal"
                     name="formType"
-                    onChange={options[0].props.children.props.children[0]
+                    onChange={options[1].props.children.props.children[0]
                       .props.onChange}
                     type="radio" />
                   Personal use
@@ -194,7 +194,7 @@ describe('CreatePaymentUser', function() {
                   <input checked={true}
                     id="business"
                     name="formType"
-                    onChange={options[1].props.children.props.children[0]
+                    onChange={options[0].props.children.props.children[0]
                       .props.onChange}
                     type="radio" />
                   Business use
@@ -263,14 +263,14 @@ describe('CreatePaymentUser', function() {
             </label>
             {null}
             {null}
-          </div>
-          <div className="create-payment-user__add">
-            <GenericButton
-              action={instance._handleAddUser}
-              disabled={false}
-              type="inline-neutral">
-              Add payment details
-            </GenericButton>
+            <div className="create-payment-user__add">
+              <GenericButton
+                action={instance._handleAddUser}
+                disabled={false}
+                type="inline-neutral">
+                Add payment details
+              </GenericButton>
+            </div>
           </div>
         </form>
       </div>);
