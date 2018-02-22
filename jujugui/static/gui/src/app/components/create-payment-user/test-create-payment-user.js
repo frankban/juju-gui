@@ -59,9 +59,12 @@ describe('CreatePaymentUser', function() {
         username="spinach"
         validateForm={validateForm} />, true);
     const instance = renderer.getMountedInstance();
-    const output = renderer.getRenderOutput();
+    let output = renderer.getRenderOutput();
+    output.props.children.props.children[0].props.children[0]
+      .props.children[1].props.children.props.children[0].props.onChange();
     const options = output.props.children.props.children[0].props.children[0]
       .props.children;
+    output = renderer.getRenderOutput();
     const expected = (
       <div className="create-payment-user">
         <form className="create-payment-user__form">
@@ -137,14 +140,14 @@ describe('CreatePaymentUser', function() {
             </label>
             {null}
             {null}
-            <div className="create-payment-user__add">
-              <GenericButton
-                action={instance._handleAddUser}
-                disabled={false}
-                type="inline-neutral">
-                Add payment details
-              </GenericButton>
-            </div>
+          </div>
+          <div className="create-payment-user__add">
+            <GenericButton
+              action={instance._handleAddUser}
+              disabled={false}
+              type="inline-positive">
+              Add payment details
+            </GenericButton>
           </div>
         </form>
       </div>);
@@ -168,8 +171,6 @@ describe('CreatePaymentUser', function() {
         validateForm={validateForm} />, true);
     const instance = renderer.getMountedInstance();
     let output = renderer.getRenderOutput();
-    output.props.children.props.children[0].props.children[0]
-      .props.children[1].props.children.props.children[0].props.onChange();
     output = renderer.getRenderOutput();
     const options = output.props.children.props.children[0].props.children[0]
       .props.children;
@@ -179,6 +180,16 @@ describe('CreatePaymentUser', function() {
           <div className="create-payment-user__form-content">
             <ul className="create-payment-user__form-type">
               <li className="create-payment-user__form-type-option">
+                <label htmlFor="business">
+                  <input checked={true}
+                    id="business"
+                    name="formType"
+                    onChange={options[0].props.children.props.children[0].props.onChange}
+                    type="radio" />
+                    Business use
+                </label>
+              </li>
+              <li className="create-payment-user__form-type-option">
                 <label htmlFor="personal">
                   <input checked={false}
                     id="personal"
@@ -187,17 +198,6 @@ describe('CreatePaymentUser', function() {
                       .props.onChange}
                     type="radio" />
                   Personal use
-                </label>
-              </li>
-              <li className="create-payment-user__form-type-option">
-                <label htmlFor="business">
-                  <input checked={true}
-                    id="business"
-                    name="formType"
-                    onChange={options[0].props.children.props.children[0]
-                      .props.onChange}
-                    type="radio" />
-                  Business use
                 </label>
               </li>
             </ul>
@@ -263,14 +263,14 @@ describe('CreatePaymentUser', function() {
             </label>
             {null}
             {null}
-            <div className="create-payment-user__add">
-              <GenericButton
-                action={instance._handleAddUser}
-                disabled={false}
-                type="inline-neutral">
-                Add payment details
-              </GenericButton>
-            </div>
+          </div>
+          <div className="create-payment-user__add">
+            <GenericButton
+              action={instance._handleAddUser}
+              disabled={false}
+              type="inline-positive">
+              Add payment details
+            </GenericButton>
           </div>
         </form>
       </div>);
@@ -481,7 +481,10 @@ describe('CreatePaymentUser', function() {
         validateForm={sinon.stub().returns(true)} />, true);
     const instance = renderer.getMountedInstance();
     instance.refs = refs;
-    const output = renderer.getRenderOutput();
+    let output = renderer.getRenderOutput();
+    output.props.children.props.children[0].props.children[0]
+      .props.children[1].props.children.props.children[0].props.onChange();
+    output = renderer.getRenderOutput();
     output.props.children.props.children[1].props.children.props.action();
     assert.equal(createUser.callCount, 1);
     assert.deepEqual(createUser.args[0][0], {
@@ -541,9 +544,6 @@ describe('CreatePaymentUser', function() {
     instance.refs = Object.assign(refs, extraRefs);
     instance.refs = refs;
     let output = renderer.getRenderOutput();
-    output.props.children.props.children[0].props.children[0]
-      .props.children[1].props.children.props.children[0].props.onChange();
-    output = renderer.getRenderOutput();
     output.props.children.props.children[1].props.children.props.action();
     assert.equal(createUser.callCount, 1);
     const args = createUser.args[0][0];
@@ -583,6 +583,9 @@ describe('CreatePaymentUser', function() {
     let formContent = output.props.children.props.children[0].props.children;
     formContent[9].props.children[0].props.onChange(
       {currentTarget: {checked: false}});
+    output = renderer.getRenderOutput();
+    output.props.children.props.children[0].props.children[0]
+      .props.children[1].props.children.props.children[0].props.onChange();
     output = renderer.getRenderOutput();
     output.props.children.props.children[1].props.children.props.action();
     assert.equal(createUser.callCount, 1);
@@ -633,7 +636,10 @@ describe('CreatePaymentUser', function() {
         validateForm={sinon.stub().returns(true)} />, true);
     const instance = renderer.getMountedInstance();
     instance.refs = refs;
-    const output = renderer.getRenderOutput();
+    let output = renderer.getRenderOutput();
+    output.props.children.props.children[0].props.children[0]
+      .props.children[1].props.children.props.children[0].props.onChange();
+    output = renderer.getRenderOutput();
     output.props.children.props.children[1].props.children.props.action();
     assert.equal(addNotification.callCount, 1);
     assert.deepEqual(addNotification.args[0][0], {
@@ -657,7 +663,10 @@ describe('CreatePaymentUser', function() {
         validateForm={sinon.stub().returns(true)} />, true);
     const instance = renderer.getMountedInstance();
     instance.refs = refs;
-    const output = renderer.getRenderOutput();
+    let output = renderer.getRenderOutput();
+    output.props.children.props.children[0].props.children[0]
+      .props.children[1].props.children.props.children[0].props.onChange();
+    output = renderer.getRenderOutput();
     output.props.children.props.children[1].props.children.props.action();
     assert.equal(onUserCreated.callCount, 1);
   });
