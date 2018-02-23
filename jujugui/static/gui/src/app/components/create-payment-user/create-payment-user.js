@@ -331,14 +331,14 @@ class CreatePaymentUser extends React.Component {
             </label>
             {this._generateCardAddressFields()}
             {this._generateBillingAddressFields()}
-          </div>
-          <div className="create-payment-user__add">
-            <GenericButton
-              action={this._handleAddUser.bind(this)}
-              disabled={disabled}
-              type="inline-positive">
-              Add payment details
-            </GenericButton>
+            <div className="create-payment-user__add">
+              <GenericButton
+                action={this._handleAddUser.bind(this)}
+                disabled={disabled}
+                type="inline-positive">
+                Add payment details
+              </GenericButton>
+            </div>
           </div>
         </form>
       </div>

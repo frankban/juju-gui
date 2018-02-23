@@ -60,10 +60,9 @@ describe('CreatePaymentUser', function() {
         validateForm={validateForm} />, true);
     const instance = renderer.getMountedInstance();
     let output = renderer.getRenderOutput();
-    output.props.children.props.children[0].props.children[0]
-      .props.children[1].props.children.props.children[0].props.onChange();
-    const options = output.props.children.props.children[0].props.children[0]
-      .props.children;
+    output.props.children.props.children.props.children[0].props.children[1]
+      .props.children.props.children[0].props.onChange();
+    const options = output.props.children.props.children.props.children[0].props.children;
     output = renderer.getRenderOutput();
     const expected = (
       <div className="create-payment-user">
@@ -140,14 +139,14 @@ describe('CreatePaymentUser', function() {
             </label>
             {null}
             {null}
-          </div>
-          <div className="create-payment-user__add">
-            <GenericButton
-              action={instance._handleAddUser}
-              disabled={false}
-              type="inline-positive">
-              Add payment details
-            </GenericButton>
+            <div className="create-payment-user__add">
+              <GenericButton
+                action={instance._handleAddUser}
+                disabled={false}
+                type="inline-positive">
+                Add payment details
+              </GenericButton>
+            </div>
           </div>
         </form>
       </div>);
@@ -172,7 +171,7 @@ describe('CreatePaymentUser', function() {
     const instance = renderer.getMountedInstance();
     let output = renderer.getRenderOutput();
     output = renderer.getRenderOutput();
-    const options = output.props.children.props.children[0].props.children[0]
+    const options = output.props.children.props.children.props.children[0]
       .props.children;
     const expected = (
       <div className="create-payment-user">
@@ -263,14 +262,14 @@ describe('CreatePaymentUser', function() {
             </label>
             {null}
             {null}
-          </div>
-          <div className="create-payment-user__add">
-            <GenericButton
-              action={instance._handleAddUser}
-              disabled={false}
-              type="inline-positive">
-              Add payment details
-            </GenericButton>
+            <div className="create-payment-user__add">
+              <GenericButton
+                action={instance._handleAddUser}
+                disabled={false}
+                type="inline-positive">
+                Add payment details
+              </GenericButton>
+            </div>
           </div>
         </form>
       </div>);
