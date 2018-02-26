@@ -171,8 +171,9 @@ describe('CreatePaymentUser', function() {
     const instance = renderer.getMountedInstance();
     let output = renderer.getRenderOutput();
     output = renderer.getRenderOutput();
-    const options = output.props.children.props.children.props.children[0]
-      .props.children;
+    output.props.children.props.children.props.children[0].props.children[1]
+      .props.children.props.children[0].props.onChange();
+    const options = output.props.children.props.children.props.children[0].props.children;
     const expected = (
       <div className="create-payment-user">
         <form className="create-payment-user__form">
@@ -291,13 +292,13 @@ describe('CreatePaymentUser', function() {
         username="spinach"
         validateForm={validateForm} />, true);
     let output = renderer.getRenderOutput();
-    let formContent = output.props.children.props.children[0].props.children;
+    let formContent = output.props.children.props.children.props.children;
     formContent[8].props.children[0].props.onChange(
       {currentTarget: {checked: false}});
     formContent[9].props.children[0].props.onChange(
       {currentTarget: {checked: false}});
     output = renderer.getRenderOutput();
-    formContent = output.props.children.props.children[0].props.children;
+    formContent = output.props.children.props.children.props.children;
     expect(formContent[10]).toEqualJSX(
       <div>
         <h2 className="create-payment-user__title">
@@ -341,7 +342,7 @@ describe('CreatePaymentUser', function() {
     const instance = component.getMountedInstance();
     instance.refs = refs;
     const output = component.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     component.unmount();
     assert.equal(abort.callCount, 1);
   });
@@ -360,7 +361,7 @@ describe('CreatePaymentUser', function() {
         username="spinach"
         validateForm={sinon.stub().returns(false)} />, true);
     const output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(createToken.callCount, 0);
   });
 
@@ -380,7 +381,7 @@ describe('CreatePaymentUser', function() {
     const instance = renderer.getMountedInstance();
     instance.refs = refs;
     const output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(createToken.callCount, 1);
     assert.deepEqual(createToken.args[0][0], {card: 'value'});
     assert.deepEqual(createToken.args[0][1], {
@@ -422,11 +423,11 @@ describe('CreatePaymentUser', function() {
     };
     instance.refs = refs;
     let output = renderer.getRenderOutput();
-    let formContent = output.props.children.props.children[0].props.children;
+    let formContent = output.props.children.props.children.props.children;
     formContent[8].props.children[0].props.onChange(
       {currentTarget: {checked: false}});
     output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(createToken.callCount, 1);
     assert.deepEqual(createToken.args[0][0], {card: 'value'});
     assert.deepEqual(createToken.args[0][1], {
@@ -456,7 +457,7 @@ describe('CreatePaymentUser', function() {
     const instance = renderer.getMountedInstance();
     instance.refs = refs;
     const output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(addNotification.callCount, 1);
     assert.deepEqual(addNotification.args[0][0], {
       title: 'Could not create Stripe token',
@@ -481,10 +482,9 @@ describe('CreatePaymentUser', function() {
     const instance = renderer.getMountedInstance();
     instance.refs = refs;
     let output = renderer.getRenderOutput();
-    output.props.children.props.children[0].props.children[0]
-      .props.children[1].props.children.props.children[0].props.onChange();
+    output.props.children.props.children.props.children[8].props.children[0].props.onChange();
     output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(createUser.callCount, 1);
     assert.deepEqual(createUser.args[0][0], {
       nickname: 'spinach',
@@ -543,7 +543,7 @@ describe('CreatePaymentUser', function() {
     instance.refs = Object.assign(refs, extraRefs);
     instance.refs = refs;
     let output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(createUser.callCount, 1);
     const args = createUser.args[0][0];
     assert.equal(args.business, true);
@@ -579,14 +579,13 @@ describe('CreatePaymentUser', function() {
     };
     instance.refs = refs;
     let output = renderer.getRenderOutput();
-    let formContent = output.props.children.props.children[0].props.children;
+    let formContent = output.props.children.props.children.props.children;
     formContent[9].props.children[0].props.onChange(
       {currentTarget: {checked: false}});
     output = renderer.getRenderOutput();
-    output.props.children.props.children[0].props.children[0]
-      .props.children[1].props.children.props.children[0].props.onChange();
+    output.props.children.props.children.props.children[9].props.children[0].props.onChange();
     output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(createUser.callCount, 1);
     assert.deepEqual(createUser.args[0][0], {
       nickname: 'spinach',
@@ -636,10 +635,9 @@ describe('CreatePaymentUser', function() {
     const instance = renderer.getMountedInstance();
     instance.refs = refs;
     let output = renderer.getRenderOutput();
-    output.props.children.props.children[0].props.children[0]
-      .props.children[1].props.children.props.children[0].props.onChange();
+    output.props.children.props.children.props.children[9].props.children[0].props.onChange();
     output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(addNotification.callCount, 1);
     assert.deepEqual(addNotification.args[0][0], {
       title: 'Could not create a payment user',
@@ -663,10 +661,9 @@ describe('CreatePaymentUser', function() {
     const instance = renderer.getMountedInstance();
     instance.refs = refs;
     let output = renderer.getRenderOutput();
-    output.props.children.props.children[0].props.children[0]
-      .props.children[1].props.children.props.children[0].props.onChange();
+    output.props.children.props.children.props.children[9].props.children[0].props.onChange();
     output = renderer.getRenderOutput();
-    output.props.children.props.children[1].props.children.props.action();
+    output.props.children.props.children.props.children[12].props.children.props.action();
     assert.equal(onUserCreated.callCount, 1);
   });
 });
