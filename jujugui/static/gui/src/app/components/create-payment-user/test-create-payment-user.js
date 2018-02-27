@@ -11,7 +11,7 @@ const AddressForm = require('../address-form/address-form');
 
 const jsTestUtils = require('../../utils/component-test-utils');
 
-describe('CreatePaymentUser', function() {
+fdescribe('CreatePaymentUser', function() {
   let acl, getCountries, onUserCreated, refs;
 
   beforeEach(() => {
@@ -19,6 +19,29 @@ describe('CreatePaymentUser', function() {
     onUserCreated = sinon.stub();
     getCountries = sinon.stub();
     refs = {
+      billingAddressSame: {checked: true},
+      businessName: {
+        getValue: sinon.stub().returns('voyages inc.')
+      },
+      cardAddress: {
+        getValue: sinon.stub().returns({
+          name: 'Geoffrey Spinach',
+          line1: '10 Maple St',
+          line2: '',
+          city: 'Sasquatch',
+          state: 'Hoodie',
+          postcode: '90210',
+          countryCode: 'CA',
+          phones: ['12341234']
+        })
+      },
+      cardAddressSame: {checked: true},
+      cardForm: {
+        getValue: sinon.stub().returns({
+          card: {card: 'value'},
+          name: 'Mr Geoffrey Spinach'
+        })
+      },
       emailAddress: {
         getValue: sinon.stub().returns('spinach@example.com')
       },
@@ -34,11 +57,8 @@ describe('CreatePaymentUser', function() {
           phones: ['12341234']
         })
       },
-      cardForm: {
-        getValue: sinon.stub().returns({
-          card: {card: 'value'},
-          name: 'Mr Geoffrey Spinach'
-        })
+      VATNumber: {
+        getValue: sinon.stub().returns('4247')
       }
     };
   });
@@ -291,12 +311,14 @@ describe('CreatePaymentUser', function() {
         onUserCreated={onUserCreated}
         username="spinach"
         validateForm={validateForm} />, true);
+    const instance = renderer.getMountedInstance();
+    instance.refs = refs;
+    refs.billingAddressSame = {checked: false};
+    refs.cardAddressSame = {checked: false};
     let output = renderer.getRenderOutput();
     let formContent = output.props.children.props.children.props.children;
-    formContent[8].props.children[0].props.onChange(
-      {currentTarget: {checked: false}});
-    formContent[9].props.children[0].props.onChange(
-      {currentTarget: {checked: false}});
+    formContent[8].props.children[0].props.onChange();
+    formContent[9].props.children[0].props.onChange();
     output = renderer.getRenderOutput();
     formContent = output.props.children.props.children.props.children;
     expect(formContent[10]).toEqualJSX(
@@ -409,6 +431,7 @@ describe('CreatePaymentUser', function() {
         username="spinach"
         validateForm={sinon.stub().returns(true)} />, true);
     const instance = renderer.getMountedInstance();
+    refs.cardAddressSame = {checked: false};
     refs.cardAddress = {
       getValue: sinon.stub().returns({
         name: 'Bruce Dundee',
@@ -500,9 +523,9 @@ describe('CreatePaymentUser', function() {
         countryCode: 'CA',
         phones: ['12341234']
       }],
-      vat: null,
-      business: false,
-      businessName: null,
+      vat: '4247',
+      business: true,
+      businessName: 'voyages inc.',
       billingAddresses: [{
         name: 'Geoffrey Spinach',
         line1: '10 Maple St',
@@ -565,6 +588,7 @@ describe('CreatePaymentUser', function() {
         username="spinach"
         validateForm={sinon.stub().returns(true)} />, true);
     const instance = renderer.getMountedInstance();
+    refs.billingAddressSame = {checked: false};
     refs.billingAddress = {
       getValue: sinon.stub().returns({
         name: 'Bruce Dundee',
@@ -601,9 +625,9 @@ describe('CreatePaymentUser', function() {
         countryCode: 'CA',
         phones: ['12341234']
       }],
-      vat: null,
-      business: false,
-      businessName: null,
+      vat: '4247',
+      business: true,
+      businessName: 'voyages inc.',
       billingAddresses: [{
         name: 'Bruce Dundee',
         line1: '9 Kangaroo St',
