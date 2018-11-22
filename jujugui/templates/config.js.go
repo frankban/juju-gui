@@ -9,7 +9,7 @@ var juju_config = {
     "bakeryEnabled": {{or (.bakeryEnabled) "true"}},
     "socket_protocol": "wss",
     "charmstoreAPIPath": "v4",
-    "charmstoreURL": "https://api.jujucharms.com/charmstore/",
+    "charmstoreURL": "{{.charmstoreURL}}/",
     "bundleServiceURL": "https://api.jujucharms.com/bundleservice/",
     "plansURL": "https://api.jujucharms.com/omnibus/",
     "paymentURL": "https://api.jujucharms.com/payment/",
